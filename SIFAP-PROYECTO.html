@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIFAP - Proyecto de Rediseño</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-color: #333;
+            --light-bg: #edf2f7;       /* Cambiado de #f8fafc a #edf2f7 - un gris azulado más oscuro */
+            --dark-bg: #1e293b;
+            --card-bg: #ffffff;        /* Nuevo color para fondos de tarjetas */
+            --border-radius: 8px;
+            --spacing: 1.5rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        header {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: var(--spacing) 0;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .hero {
+            padding: 4rem 1rem;
+            text-align: center;
+            background-color: var(--dark-bg);
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .developer-info {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing);
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .developer-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+        
+        .section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+        }
+        
+        /* Videos section */
+        .videos-comparison {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .video-container {
+            flex: 1;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: var(--card-bg);
+        }
+        
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+        
+        .video-caption {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 1rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .video-caption h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Mejoras section */
+        .improvements-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .improvement-category {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .improvement-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .category-title {
+            font-size: 1.3rem;
+            margin: 0;
+        }
+        
+        .improvement-list {
+            padding: 1.5rem;
+        }
+        
+        .improvement-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .improvement-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .item-icon {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .item-text {
+            font-size: 0.95rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .developer-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .videos-comparison {
+                flex-direction: column;
+            }
+            
+            .improvements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">SIFAP Rediseño</div>
+                <nav>
+                    <a href="#videos" style="color: white; margin-right: 15px; text-decoration: none;">Videos</a>
+                    <a href="#mejoras" style="color: white; margin-right: 15px; text-decoration: none;">Mejoras</a>
+                    <a href="#galeria" style="color: white; margin-right: 15px; text-decoration: none;">Galería</a>
+                    <a href="#documentacion" style="color: white; text-decoration: none;">Documentación</a>
+                </nav>
+            </div>
+            <div class="hero">
+                <h1>Proyecto de Rediseño SIFAP</h1>
+                <p>Documentación comparativa del antes y después del proceso de rediseño del sitio web oficial de SIFAP, enfocado en la optimización de rendimiento, mejora de la experiencia de usuario y modernización completa del catálogo de productos.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="developer-info">
+            <img src="./img/ale.jpg" alt="Alejandro Gabriel Otero" class="developer-photo">
+            <div>
+                <h2>Alejandro Gabriel Otero</h2>
+                <p>Desarrollador Frontend Freelance</p>
+                <p>Especializado en crear experiencias web modernas, intuitivas y optimizadas que mejoran la interacción del usuario y la conversión.</p>
+            </div>
+        </div>
+        
+        <section id="videos" class="section">
+            <h2 class="section-title">Análisis Comparativo</h2>
+            
+            <div class="videos-comparison">
+                <div class="video-container">
+                    <iframe width="100%" height="350" src="https://www.youtube.com/embed/Hfx-Nf31DyM" title="Análisis Página Sifap Original" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-caption">
+                        <h3>Análisis Página Sifap Original</h3>
+                        <p>Revisión detallada de la versión anterior del sitio web.</p>
+                    </div>
+                </div>
+                
+                <div class="video-container">
+                    <iframe width="100%" height="350" src="https://www.youtube.com/embed/0fBNazItjV0" title="Análisis Página Sifap Nueva" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-caption">
+                        <h3>Análisis Página Sifap Nueva</h3>
+                        <p>Presentación de las mejoras implementadas en la nueva versión.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparativa-carritos" class="section">
+            <h2 class="section-title">Comparativa Carritos</h2>
+            
+            <div class="videos-comparison">
+                <div class="video-container">
+                    <iframe width="100%" height="350" src="https://www.youtube.com/embed/21LdWAJDA5A" title="Carrito Original" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-caption">
+                        <h3>Carrito Original</h3>
+                        <p>Funcionalidad del carrito en la versión anterior.</p>
+                    </div>
+                </div>
+                
+                <div class="video-container">
+                    <iframe width="100%" height="350" src="https://www.youtube.com/embed/AaGhGVu2UmQ" title="Carrito Rediseñado" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-caption">
+                        <h3>Carrito Rediseñado</h3>
+                        <p>Mejoras implementadas en el carrito de compras.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparativa-velocidad" class="section">
+            <h2 class="section-title">Comparativa Velocidad De Carga</h2>
+            
+            <div class="videos-comparison">
+                <div class="video-container">
+                    <iframe width="100%" height="350" src="https://www.youtube.com/embed/lDwVMtK5BpA" title="Velocidad Original" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-caption">
+                        <h3>Velocidad Original</h3>
+                        <p>Tiempo de carga en la versión anterior del sitio.</p>
+                    </div>
+                </div>
+                
+                <div class="video-container">
+                    <iframe width="100%" height="350" src="https://www.youtube.com/embed/zcvwkkwGxtY" title="Velocidad Mejorada" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div class="video-caption">
+                        <h3>Velocidad Mejorada</h3>
+                        <p>Optimización de tiempos de carga en la nueva versión.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="mejoras" class="section">
+            <h2 class="section-title">Innovaciones Técnicas & Optimización</h2>
+            
+            <div class="improvements-grid">
+                <!-- Rendimiento y Optimización -->
+                <div class="improvement-category">
+                    <div class="category-header">
+                        <div class="category-icon">🚀</div>
+                        <h3 class="category-title">Rendimiento y Optimización</h3>
+                    </div>
+                    <div class="improvement-list">
+                        <div class="improvement-item">
+                            <div class="item-icon">⚡</div>
+                            <div class="item-text">Optimización completa del sitio, logrando que las páginas de Productos e Inspección sean hasta <strong>20 veces más rápidas</strong> mediante reestructuración de código.</div>
+                        </div>
+                        <div class="improvement-item">
+                            <div class="item-icon">🖼️</div>
+                            <div class="item-text">Reorganización y conversión completa de imágenes para maximizar el rendimiento y tiempos de carga.</div>
+                        </div>
+                        <div class="improvement-item">
+                            <div class="item-icon">🗑️</div>
+                            <div class="item-text">Eliminación de la "seccion_derecha" que generaba problemas significativos de carga y tenía un estilo anticuado.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interfaz de Usuario -->
+                <div class="improvement-category">
+                    <div class="category-header">
+                        <div class="category-icon">🎨</div>
+                        <h3 class="category-title">Interfaz de Usuario</h3>
+                    </div>
+                    <div class="improvement-list">
+                        <div class="improvement-item">
+                            <div class="item-icon">🃏</div>
+                            <div class="item-text">Tarjetas de productos completamente renovadas con nueva lógica funcional y animaciones de procesamiento.</div>
+                        </div>
+                        <div class="improvement-item">
+                            <div class="item-icon">🏷️</div>
+                            <div class="item-text">Conversión de insignias estáticas a tags dinámicos sobre las tarjetas de productos, mejorando la estética minimalista y adaptabilidad.</div>
+                        </div>
+                        <div class="improvement-item">
+                            <div class="item-icon">📱</div>
+                            <div class="item-text">Rediseño completo de la página "Producto" individual y de la sección "Catálogo".</div>
+                        </div>
+                        <div class="improvement-item">
+                            <div class="item-icon">🏠</div>
+                            <div class="item-text">Rediseño parcial de la página Principal para mejorar la coherencia visual y experiencia del usuario.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navegación y Filtros -->
+                <div class="improvement-category">
+                    <div class="category-header">
+                        <div class="category-icon">🧭</div>
+                        <h3 class="category-title">Navegación y Filtros</h3>
+                    </div>
+                    <div class="improvement-list">
+                        <div class="improvement-item">
+                            <div class="item-icon">📊</div>
+                            <div class="item-text">Integración de Barra Lateral para optimizar el filtrado y búsqueda de productos, adaptada a formatos móviles y múltiples resoluciones.</div>
+                        </div>
+                        <div class="improvement-item">
+                            <div class="item-icon">🧹</div>
+                            <div class="item-text">Limpieza y optimización de filtros no utilizados en la base de datos.</div>
+                        </div>
+                        <div class="improvement-item">
+                            <div class="item-icon">✨</div>
+                            <div class="item-text">Creación de nuevo filtro "Producto Nuevo" para facilitar la identificación de artículos recientes.</div>
+                        </div>
+                        <div class="improvement-item">
+                            <div class="item-icon">🎠</div>
+                            <div class="item-text">Solución implementada para el carrusel, habilitando el botón de acceso directo a productos promocionados.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Estandarización y Consistencia -->
+                <div class="improvement-category">
+                    <div class="category-header">
+                        <div class="category-icon">📐</div>
+                        <h3 class="category-title">Estandarización y Consistencia</h3>
+                    </div>
+                    <div class="improvement-list">
+                        <div class="improvement-item">
+                            <div class="item-icon">🧩</div>
+                            <div class="item-text">Rediseño de la barra de navegación con contenido centrado y mejor funcionalidad. Eliminación de elementos redundantes como la lupa y menú desplegable.</div>
+                        </div>
+                        <div class="improvement-item">
+                            <div class="item-icon">🔄</div>
+                            <div class="item-text">Estandarización del aspecto y funcionamiento de las barras de navegación en todas las páginas del sitio.</div>
+                        </div>
+                        <div class="improvement-item">
+                            <div class="item-icon">👣</div>
+                            <div class="item-text">Rediseño del footer para todas las páginas, garantizando coherencia visual.</div>
+                        </div>
+                        <div class="improvement-item">
+                            <div class="item-icon">📱</div>
+                            <div class="item-text">Actualización de iconos de redes sociales (Instagram arreglado y Twitter reemplazado por TikTok).</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="galeria" class="section">
+            <h2 class="section-title">Galería de Imágenes</h2>
+            
+            <style>
+                .gallery-grid {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3rem;
+                    margin: 2rem 0;
+                }
+                
+                .gallery-item {
+                    width: 100%;
+                }
+                
+                .gallery-title {
+                    font-size: 1.3rem;
+                    margin-bottom: 1.5rem;
+                    color: var(--primary-color);
+                    border-bottom: 2px solid var(--accent-color);
+                    padding-bottom: 0.5rem;
+                    display: inline-block;
+                }
+                
+                /* Simple before-after comparison */
+                .comparison-container {
+                    display: flex;
+                    gap: 2rem;
+                }
+                
+                .comparison-image-container {
+                    flex: 1;
+                    position: relative;
+                    border-radius: var(--border-radius);
+                    overflow: hidden;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    cursor: pointer;
+                    transition: transform 0.2s;
+                    background-color: var(--card-bg);
+                }
+                
+                .comparison-image-container:hover {
+                    transform: scale(1.02);
+                }
+                
+                .comparison-image {
+                    width: 100%;
+                    aspect-ratio: 4/3;
+                    object-fit: cover;
+                    display: block;
+                }
+                
+                .comparison-label {
+                    position: absolute;
+                    top: 10px;
+                    left: 10px;
+                    background-color: rgba(0, 0, 0, 0.7);
+                    color: white;
+                    padding: 5px 10px;
+                    border-radius: 4px;
+                    font-size: 0.9rem;
+                }
+                
+                /* Modal/Lightbox for full-size images */
+                .modal {
+                    display: none;
+                    position: fixed;
+                    z-index: 1000;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.9);
+                    overflow: auto;
+                }
+                
+                .modal-content {
+                    position: relative;
+                    display: block;
+                    margin: auto;
+                    max-width: 90%;
+                    max-height: 90vh;
+                    padding-top: 5vh;
+                    object-fit: contain;
+                }
+                
+                .close-modal {
+                    position: absolute;
+                    top: 20px;
+                    right: 30px;
+                    color: white;
+                    font-size: 40px;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+                
+                @media (max-width: 768px) {
+                    .comparison-container {
+                        flex-direction: column;
+                    }
+                }
+            </style>
+            
+            <div class="gallery-grid">
+                <!-- Página Inicial -->
+                <div class="gallery-item">
+                    <h3 class="gallery-title">Página Inicial</h3>
+                    <div class="comparison-container">
+                        <div class="comparison-image-container" onclick="openModal('modal-1-1')">
+                            <img src="./ImagenesAntes/IndexAntes.png" alt="Página Inicial Antes" class="comparison-image">
+                            <div class="comparison-label">ANTES</div>
+                        </div>
+                        <div class="comparison-image-container" onclick="openModal('modal-1-2')">
+                            <img src="./ImagenesDespues/index1080.png" alt="Página Inicial Después" class="comparison-image">
+                            <div class="comparison-label">DESPUÉS</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Productos -->
+                <div class="gallery-item">
+                    <h3 class="gallery-title">Productos</h3>
+                    <div class="comparison-container">
+                        <div class="comparison-image-container" onclick="openModal('modal-2-1')">
+                            <img src="./ImagenesAntes/ProductosAntes1920.png" alt="Productos Antes" class="comparison-image">
+                            <div class="comparison-label">ANTES</div>
+                        </div>
+                        <div class="comparison-image-container" onclick="openModal('modal-2-2')">
+                            <img src="./ImagenesDespues/productos.png" alt="Productos Después" class="comparison-image">
+                            <div class="comparison-label">DESPUÉS</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjetas de Producto -->
+                <div class="gallery-item">
+                    <h3 class="gallery-title">Tarjetas de Producto</h3>
+                    <div class="comparison-container">
+                        <div class="comparison-image-container" onclick="openModal('modal-3-1')">
+                            <img src="./ImagenesAntes/TarjetaAntes.png" alt="Tarjetas de Producto Antes" class="comparison-image">
+                            <div class="comparison-label">ANTES</div>
+                        </div>
+                        <div class="comparison-image-container" onclick="openModal('modal-3-2')">
+                            <img src="./ImagenesDespues/Tarjeta.png" alt="Tarjetas de Producto Después" class="comparison-image">
+                            <div class="comparison-label">DESPUÉS</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Página de Producto Individual -->
+                <div class="gallery-item">
+                    <h3 class="gallery-title">Página de Producto Individual</h3>
+                    <div class="comparison-container">
+                        <div class="comparison-image-container" onclick="openModal('modal-4-1')">
+                            <img src="./ImagenesAntes/ProductoAntes1920.png" alt="Producto Individual Antes" class="comparison-image">
+                            <div class="comparison-label">ANTES</div>
+                        </div>
+                        <div class="comparison-image-container" onclick="openModal('modal-4-2')">
+                            <img src="./ImagenesDespues/producto.png" alt="Producto Individual Después" class="comparison-image">
+                            <div class="comparison-label">DESPUÉS</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navegación -->
+                <div class="gallery-item">
+                    <h3 class="gallery-title">Navegación</h3>
+                    <div class="comparison-container">
+                        <div class="comparison-image-container" onclick="openModal('modal-5-1')">
+                            <img src="./ImagenesAntes/NavbarAntes.png" alt="Navegación Antes" class="comparison-image">
+                            <div class="comparison-label">ANTES</div>
+                        </div>
+                        <div class="comparison-image-container" onclick="openModal('modal-5-2')">
+                            <img src="./ImagenesDespues/navbar.png" alt="Navegación Después" class="comparison-image">
+                            <div class="comparison-label">DESPUÉS</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Footer -->
+                <div class="gallery-item">
+                    <h3 class="gallery-title">Footer</h3>
+                    <div class="comparison-container">
+                        <div class="comparison-image-container" onclick="openModal('modal-6-1')">
+                            <img src="./ImagenesAntes/FooterAntesProductos.png" alt="Footer Antes" class="comparison-image">
+                            <div class="comparison-label">ANTES</div>
+                        </div>
+                        <div class="comparison-image-container" onclick="openModal('modal-6-2')">
+                            <img src="./ImagenesDespues/footer.png" alt="Footer Después" class="comparison-image">
+                            <div class="comparison-label">DESPUÉS</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Catálogo -->
+                <div class="gallery-item">
+                    <h3 class="gallery-title">Catálogo</h3>
+                    <div class="comparison-container">
+                        <div class="comparison-image-container" onclick="openModal('modal-7-1')">
+                            <img src="./ImagenesAntes/CatalogoAntes1920.png" alt="Catálogo Antes" class="comparison-image">
+                            <div class="comparison-label">ANTES</div>
+                        </div>
+                        <div class="comparison-image-container" onclick="openModal('modal-7-2')">
+                            <img src="./ImagenesDespues/catalogo.png" alt="Catálogo Después" class="comparison-image">
+                            <div class="comparison-label">DESPUÉS</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carrusel -->
+                <div class="gallery-item">
+                    <h3 class="gallery-title">Carrusel</h3>
+                    <div class="comparison-container">
+                        <div class="comparison-image-container" onclick="openModal('modal-8-1')">
+                            <img src="./ImagenesAntes/carrusel.png" alt="Carrusel Antes" class="comparison-image">
+                            <div class="comparison-label">ANTES</div>
+                        </div>
+                        <div class="comparison-image-container" onclick="openModal('modal-8-2')">
+                            <img src="./ImagenesDespues/carrusel.png" alt="Carrusel Después" class="comparison-image">
+                            <div class="comparison-label">DESPUÉS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modals para imágenes ampliadas -->
+            <div id="modal-1-1" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-1-1')">&times;</span>
+                <img class="modal-content" src="./ImagenesAntes/IndexAntes.png" alt="Página Inicial Antes">
+            </div>
+            <div id="modal-1-2" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-1-2')">&times;</span>
+                <img class="modal-content" src="./ImagenesDespues/index1080.png" alt="Página Inicial Después">
+            </div>
+            
+            <div id="modal-2-1" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-2-1')">&times;</span>
+                <img class="modal-content" src="./ImagenesAntes/ProductosAntes1920.png" alt="Productos Antes">
+            </div>
+            <div id="modal-2-2" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-2-2')">&times;</span>
+                <img class="modal-content" src="./ImagenesDespues/productos.png" alt="Productos Después">
+            </div>
+            
+            <div id="modal-3-1" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-3-1')">&times;</span>
+                <img class="modal-content" src="./ImagenesAntes/TarjetaAntes.png" alt="Tarjetas de Producto Antes">
+            </div>
+            <div id="modal-3-2" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-3-2')">&times;</span>
+                <img class="modal-content" src="./ImagenesDespues/Tarjeta.png" alt="Tarjetas de Producto Después">
+            </div>
+            
+            <div id="modal-4-1" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-4-1')">&times;</span>
+                <img class="modal-content" src="./ImagenesAntes/ProductoAntes1920.png" alt="Producto Individual Antes">
+            </div>
+            <div id="modal-4-2" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-4-2')">&times;</span>
+                <img class="modal-content" src="./ImagenesDespues/producto.png" alt="Producto Individual Después">
+            </div>
+            
+            <div id="modal-5-1" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-5-1')">&times;</span>
+                <img class="modal-content" src="./ImagenesAntes/NavbarAntes.png" alt="Navegación Antes">
+            </div>
+            <div id="modal-5-2" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-5-2')">&times;</span>
+                <img class="modal-content" src="./ImagenesDespues/navbar.png" alt="Navegación Después">
+            </div>
+            
+            <div id="modal-6-1" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-6-1')">&times;</span>
+                <img class="modal-content" src="./ImagenesAntes/FooterAntesProductos.png" alt="Footer Antes">
+            </div>
+            <div id="modal-6-2" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-6-2')">&times;</span>
+                <img class="modal-content" src="./ImagenesDespues/footer.png" alt="Footer Después">
+            </div>
+            
+            <div id="modal-7-1" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-7-1')">&times;</span>
+                <img class="modal-content" src="./ImagenesAntes/CatalogoAntes1920.png" alt="Catálogo Antes">
+            </div>
+            <div id="modal-7-2" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-7-2')">&times;</span>
+                <img class="modal-content" src="./ImagenesDespues/catalogo.png" alt="Catálogo Después">
+            </div>
+            
+            <div id="modal-8-1" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-8-1')">&times;</span>
+                <img class="modal-content" src="./ImagenesAntes/carrusel.png" alt="Carrusel Antes">
+            </div>
+            <div id="modal-8-2" class="modal">
+                <span class="close-modal" onclick="closeModal('modal-8-2')">&times;</span>
+                <img class="modal-content" src="./ImagenesDespues/carrusel.png" alt="Carrusel Después">
+            </div>
+        </section>
+        
+        <section id="documentacion" class="section">
+            <h2 class="section-title">Documentación Completa</h2>
+            
+            <style>
+                .documentation-container {
+                    background-color: var(--card-bg);
+                    border-radius: var(--border-radius);
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+                    padding: 3rem;
+                    text-align: center;
+                    max-width: 800px;
+                    margin: 0 auto;
+                }
+                
+                .documentation-icon {
+                    font-size: 4rem;
+                    margin-bottom: 1.5rem;
+                    color: var(--primary-color);
+                }
+                
+                .documentation-title {
+                    font-size: 1.5rem;
+                    margin-bottom: 1rem;
+                    color: var(--dark-bg);
+                }
+                
+                .documentation-description {
+                    margin-bottom: 2rem;
+                    color: var(--text-color);
+                    line-height: 1.8;
+                }
+                
+                .documentation-highlight {
+                    background-color: #f1f5ff;
+                    border-left: 4px solid var(--primary-color);
+                    padding: 1rem 1.5rem;
+                    margin: 1.5rem 0;
+                    text-align: left;
+                    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+                }
+                
+                .documentation-highlight p {
+                    margin: 0;
+                }
+                
+                .download-button {
+                    display: inline-block;
+                    background-color: var(--primary-color);
+                    color: white;
+                    padding: 1rem 2rem;
+                    border-radius: var(--border-radius);
+                    font-weight: bold;
+                    font-size: 1.1rem;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                    border: none;
+                    cursor: pointer;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                }
+                
+                .download-button:hover {
+                    background-color: var(--secondary-color);
+                    transform: translateY(-3px);
+                    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+                }
+                
+                .download-icon {
+                    margin-right: 0.5rem;
+                }
+            </style>
+            
+            <div class="documentation-container">
+                <div class="documentation-icon">📄</div>
+                <h3 class="documentation-title">Detalles Técnicos y Presupuesto del Proyecto</h3>
+                <p class="documentation-description">
+                    Descargue el documento completo con todos los detalles técnicos del rediseño del sitio web de SIFAP.
+                    Este documento incluye una descripción detallada de todas las mejoras implementadas y las tecnologías utilizadas.
+                </p>
+                
+                <div class="documentation-highlight">
+                    <p><strong>El PDF incluye también:</strong></p>
+                    <ul style="text-align: left; margin-top: 0.5rem;">
+                        <li>El detalle de las horas de trabajo invertidas en cada etapa del proyecto</li>
+                        <li>El presupuesto completo desglosado por tareas</li>
+                    </ul>
+                </div>
+                
+                <a href="Presupuesto_SIFAP_Renovacion_Alejandro_Otero.pdf" class="download-button" download="SIFAP_Documentacion_Tecnica_Presupuesto.pdf">
+                    <span class="download-icon">⬇️</span> 
+                    Descargar Documentación Completa (PDF)
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Alejandro Gabriel Otero - Desarrollador Frontend</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/alejandro-otero-656a3518a/" class="social-link" style="margin-right: 20px;">LinkedIn</a>
+                <a href="https://github.com/AlejandroOtero97" class="social-link" style="margin-right: 20px;">GitHub</a>
+                <a href="https://wa.me/5491140588867" class="social-link">WhatsApp</a>
+            </div>
+            <p>Este proyecto fue desarrollado para SIFAP como parte de su estrategia de renovación digital.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Funciones para abrir y cerrar los modales
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden"; // Evita el desplazamiento de la página cuando el modal está abierto
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto"; // Restaura el desplazamiento
+        }
+        
+        // Cierra el modal si el usuario hace clic fuera de la imagen
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+        
+        // Para cerrar el modal con la tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const modals = document.getElementsByClassName('modal');
+                for (let modal of modals) {
+                    if (modal.style.display === "block") {
+                        modal.style.display = "none";
+                        document.body.style.overflow = "auto";
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
